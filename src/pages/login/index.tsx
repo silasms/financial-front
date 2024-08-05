@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../service/axios";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
+import { useAuth } from "../../hooks/auth";
 
 export function Login() {
+  const navigate = useNavigate()
+  const { signin } = useAuth()
   const onSubmit = async () => {
     const user = {
       email: (document.getElementById('email') as HTMLInputElement).value,
@@ -12,7 +15,8 @@ export function Login() {
 
     try {
       const { data } = await api.post('user/login', user)
-      console.log(data)
+      signin(data)
+      navigate('/home')
     } catch(err) {
       if (err instanceof AxiosError) {
         toast.error('Faça o login novamente.')
