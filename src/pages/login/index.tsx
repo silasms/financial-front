@@ -6,8 +6,8 @@ import { AxiosError } from "axios";
 export function Login() {
   const onSubmit = async () => {
     const user = {
-      email: document.getElementById('email'),
-      password: document.getElementById('password')
+      email: (document.getElementById('email') as HTMLInputElement).value,
+      password: (document.getElementById('password') as HTMLInputElement).value
     }
 
     try {
