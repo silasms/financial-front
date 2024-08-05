@@ -3,11 +3,13 @@ import { api } from "../../service/axios";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
 import { useAuth } from "../../hooks/auth";
+import { FormEvent } from "react";
 
 export function Login() {
   const navigate = useNavigate()
   const { signin } = useAuth()
-  const onSubmit = async () => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     const user = {
       email: (document.getElementById('email') as HTMLInputElement).value,
       password: (document.getElementById('password') as HTMLInputElement).value
