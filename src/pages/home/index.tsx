@@ -17,8 +17,8 @@ export function Home() {
     getMovements()
   }, [])
   return (
-    <div>
-      <p>Movimentações</p>
+    <div className="pt-10">
+      <h1 className="text-lg font-bold">Movimentações</h1>
       <div>
         {movements.map(({id, status, value, createdAt}) => {
           return (
