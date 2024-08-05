@@ -15,6 +15,7 @@ export function Router() {
         <Route element={<AuthGuard isPrivate={true} />}>
           <Route path="/home" element={<Home />}/>
         </Route>
+        <Route path="*" element={<Home/>}/>
       </Routes>
     </BrowserRouter>
   )
