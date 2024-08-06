@@ -2,8 +2,9 @@ import { createContext, useState } from "react";
 
 export interface AuthContextValue {
   signedIn: boolean
-  user: object
+  user: { email: string, id: string, name: string }
   signin: (token: string, user?: object) => void
+  token: string
 }
 
 export const AuthContext = createContext({} as AuthContextValue)
@@ -22,9 +23,18 @@ function getUser() {
   return user ? JSON.parse(user) : null
 }
 
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [ signedIn, setSignedIn ] = useState(isSigned())
   const [ user, setUser ] = useState(getUser())
+  const [ token ] = useState(getToken())
+
+  function getToken() {
+    const token = localStorage.getItem('TOKEN')
+    if (!token) return ""
+
+    return token
+  }
 
   const signin = (token: string, user?: object) => {
     localStorage.setItem('TOKEN', token)
@@ -40,7 +50,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       value={{
         signedIn,
         user,
-        signin
+        signin,
+        token
       }}
     >
       {children}
