@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { api } from "../../service/axios";
 import { toast } from "react-toastify";
 import { AxiosError } from "axios";
@@ -6,7 +6,6 @@ import { useAuth } from "../../hooks/auth";
 import { FormEvent } from "react";
 
 export function Login() {
-  const navigate = useNavigate()
   const { signin } = useAuth()
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -19,7 +18,6 @@ export function Login() {
       const { data } = await api.post('user/login', user)
       const response = await api.post('user/tokendecode', {token: data}, { headers: { Authorization: data } })
       signin(data, response.data)
-      navigate('/home')
     } catch(err) {
       if (err instanceof AxiosError) {
         toast.error('Faça o login novamente.')
