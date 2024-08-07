@@ -4,6 +4,7 @@ import { Register } from "../pages/register";
 import { AuthGuard } from "../guard/auth.guard";
 import { Home } from "../pages/home";
 import { HeaderLayout } from "../layouts/header.layout";
+import { Edit } from "../pages/edit";
 
 export function Router() {
   return (
@@ -16,6 +17,7 @@ export function Router() {
         <Route element={<AuthGuard isPrivate={true} />}>
           <Route element={<HeaderLayout />}>
             <Route path="/home" element={<Home />}/>
+            <Route path="/edit" element={<Edit />}/>
           </Route>
         </Route>
         <Route path="*" element={<Home/>}/>
