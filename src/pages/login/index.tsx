@@ -26,7 +26,8 @@ export function Login() {
   }
   return (
     <div className="w-full h-screen flex justify-center items-center">
-      <div className="shadow-lg px-4 py-2">
+      <div className="shadow-lg px-4 py-2 flex flex-col items-center gap-3">
+        <h1 className="text-2xl">Login</h1>
         <form className="flex flex-col gap-4 items-center" onSubmit={onSubmit}>
           <input type="email" name="email" id="email" placeholder="Email" className="outline outline-1 outline-gray-300 px-4 py-1"/>
           <input type="password" name="password" id="password" placeholder="Senha" className="outline outline-1 outline-gray-300 px-4 py-1"/>
