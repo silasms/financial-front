@@ -39,6 +39,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     localStorage.clear()
+    setSignedIn(false)
   }
 
   const signin = (token: string, user?: object) => {
