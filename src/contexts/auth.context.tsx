@@ -5,6 +5,7 @@ export interface AuthContextValue {
   user: { email: string, id: string, name: string }
   signin: (token: string, user?: object) => void
   token: string
+  logout: () => void
 }
 
 export const AuthContext = createContext({} as AuthContextValue)
@@ -27,7 +28,7 @@ function getUser() {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [ signedIn, setSignedIn ] = useState(isSigned())
   const [ user, setUser ] = useState(getUser())
-  const [ token ] = useState(getToken())
+  const [ token, setToken ] = useState(getToken())
 
   function getToken() {
     const token = localStorage.getItem('TOKEN')
@@ -36,9 +37,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return token
   }
 
+  const logout = () => {
+    localStorage.clear()
+  }
+
   const signin = (token: string, user?: object) => {
     localStorage.setItem('TOKEN', token)
     setSignedIn(true)
+    setToken(token)
     
     if (!user) return
     localStorage.setItem('USER', JSON.stringify(user))
@@ -51,7 +57,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         signedIn,
         user,
         signin,
-        token
+        token,
+        logout
       }}
     >
       {children}
